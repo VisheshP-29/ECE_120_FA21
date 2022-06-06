@@ -1,0 +1,29 @@
+; This is the file you will use for the lab assignment
+; Make sure to comment your code properly and don't exceed 
+; the line limitation for this assignment.  Good luck!
+; Name: Vishesh Prasad  Date: November 12, 2021
+; The purpose and general function of this code program is to find the sum of all the positive
+; numbers in a given file. The file, numbers.bin, contains the 10 16-bit binary words that the
+; program will iterate through. The numbers are stored at a specific location in memory that 
+; the program will have to access to get the numbers.
+; Register Table:
+; R1 - value stored at memory location of R3
+; R3 - value of location in memory that contains the 16-bit binary word to check
+; R4 - counter that counts down from 10
+; R5 - total working sum of positive numbers in memory
+
+0011 0001 0000 0000 ; x3100 - starting address of the program
+
+; The program description and code starts here
+
+1110 011 000110001    ; LEA R3, PCoffset	stores memory location of words in R3
+0101 100 100 1 00000  ; AND R4, R4, #0		resets R4 to 0
+0001 100 100 1 01010  ; ADD R4, R4, #10		adds 10 to R4
+0101 101 101 1 00000  ; AND R5, R5, #0		resets R5 to 0
+0110 001 011 000000   ; LDR R1, R3, #0		stores value of memory location of R3 in R1
+0000 100 000000001    ; BRn #1			checks if R1 is negative and branches accordingly
+0001 101 101 0 00 001 ; ADD R5, R5, R1		adds value in R1 to R5
+0001 011 011 1 00001  ; ADD R3, R3, #1		increments R3
+0001 100 100 1 11111  ;	ADD R4, R4, #-1		decrements R4
+0000 001 111111010    ; BRp #-6			checks if R4 is positive and loops back, if not continues
+1111 0000 00100101    ; TRAP			halts the program

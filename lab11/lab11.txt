@@ -1,0 +1,30 @@
+Question 1: Describe the errors that occur when trying to assemble lab11.asm. Identify the cause of each error.
+Errors:
+1. Illegal operands for missing opcode
+ - This error occurs because there is a missing .ORIG opcode for the program to start at x3000
+2. Instruction appears before .ORIG.
+ - This error occurs because there is no .ORIG at the beginning so the program doesn't know where to place the code at this line.
+3. Constant outside of allowed range
+ - This error occurs because the value x3010 is too large to be placed into the 9-bit PCoffset for the instruction LD.
+4. Illegal operands for ADD
+ - This error occurs because there is two commas in the line when there should be one.
+5. Constant outside of allowed range
+ - This error occurs because the value x300F is too large to be placed into the 9-bit PCoffset for the instruction for LD.
+6. Label OUTERLOOP has already appeared
+ - This error occurs because the opcode BRpz is incorrect and the branch to OUTERLOOOP doesn't exist. BRpz should be BRzp.
+7. No .END directive found
+ - This error occurs becuse there is no .END Pseudo-op at the end of the program so the LC3-assembler doesn't know when to stop the program.
+8. Unknown label "xxxx"
+ - This error occurs because xxxx doesn't point to any location where the factorial calculation is supposed to be stored at.
+
+
+Question 2: For each label in the code, write down the corresponding memory location. 
+Label:
+ - OUTERLOOP is placed at x3004
+ - INNERLOOP is placed at x3005
+ - INPUT is placed at x300D
+ - RESULT is placed at x3010
+
+
+Question 3: Between using labels and explicit memory locations/offsets, which one makes the most sense, and why?
+Using labels makes more sense than explicit memory locations/offsets because it is easier to reference the memory locations from different points in the program. You wouldn't have to calculate the offset for each time you reference the location. This also means that if new lines are added or removed to the code, the PCoffset doesn't have to be recalculated and the assembler does the work for us.
